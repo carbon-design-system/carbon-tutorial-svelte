@@ -16,6 +16,6 @@ Starts the the app in development mode.
 
 Builds the app for production.
 
-## `yarn preview`
+### `yarn preview`
 
 Previews the bundled app; make sure to run `yarn build` first.
