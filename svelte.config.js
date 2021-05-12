@@ -9,7 +9,6 @@ export default {
     adapter: adapter(),
     vite: {
       optimizeDeps: { include: ["clipboard-copy"] },
-      plugins: [process.env.NODE_ENV === "production" && carbon.optimizeCss()],
     },
   },
 };
