@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
-    "preview": "svelte-kit preview"
+    "preview": "svelte-kit preview",
+    "deploy": "rm -rf ./build && yarn build && cf push -f manifest.yml"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "next",
