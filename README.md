@@ -18,4 +18,4 @@ Builds the app for production.
 
 ### `yarn preview`
 
-Previews the bundled app; make sure to run `yarn build` first.
+Previews the bundled app (run `yarn build` first).
