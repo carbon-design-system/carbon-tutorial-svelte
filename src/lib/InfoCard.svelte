@@ -35,7 +35,7 @@
     }
   }
 
-  :global(.info-card) {
+  :global(.info-card.info-card) {
     display: flex;
     flex-direction: column;
   }
