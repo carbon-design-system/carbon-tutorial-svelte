@@ -4,11 +4,16 @@
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
-    "preview": "svelte-kit preview"
+    "preview": "svelte-kit preview",
+    "format": "prettier --write 'src/**/*.{js,svelte}'",
+    "format:diff": "prettier --list-different 'src/**/*.{js,svelte}'",
+    "ci-check": "yarn format:diff"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "next",
     "@sveltejs/kit": "next",
+    "prettier": "^2.3.0",
+    "prettier-plugin-svelte": "^2.3.0",
     "svelte": "^3.38.2"
   }
 }
