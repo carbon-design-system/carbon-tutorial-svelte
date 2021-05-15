@@ -69,7 +69,7 @@
   </Column>
 </Row>
 
-<Row>
+<Row class="landing-page-background landing-page__r3">
   <Column md={4} lg={4}>
     <h3>The Principles</h3>
   </Column>
