@@ -25,16 +25,14 @@
   let error = false;
   let data = [];
 
-  $: firstRowIndex = pageSize * (page - 1);
-  $: repos = data.map((row) => ({
+  $: rows = data.map((row) => ({
     ...row,
     stars: row.stargazers.totalCount,
     issueCount: row.issues.totalCount,
     createdAt: new Date(row.createdAt).toLocaleDateString(),
     updatedAt: new Date(row.updatedAt).toLocaleDateString(),
   }));
-  $: rows = repos.slice(firstRowIndex, firstRowIndex + pageSize);
-  $: totalItems = repos.length;
+  $: totalItems = rows.length;
 
   async function fetchData() {
     const response = await fetch("https://api.github.com/graphql", {
@@ -90,6 +88,8 @@
         description="A collection of public Carbon repositories."
         {headers}
         {rows}
+        {pageSize}
+        {page}
       >
         <span slot="cell" let:row let:cell>
           {#if cell.key === "links"}
