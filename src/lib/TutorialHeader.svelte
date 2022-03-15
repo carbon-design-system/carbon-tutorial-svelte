@@ -24,7 +24,7 @@
       text="Repositories"
       href="/repos"
       sveltekit:prefetch
-      aria-current={$page.path === "/repos" ? "page" : undefined}
+      aria-current={$page.url.pathname === "/repos" ? "page" : undefined}
     />
   </HeaderNav>
   <HeaderUtilities>
