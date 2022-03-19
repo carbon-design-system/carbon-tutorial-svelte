@@ -1,6 +1,9 @@
 {
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=14.13"
+  },
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
