@@ -7,11 +7,6 @@
     HeaderUtilities,
     HeaderGlobalAction,
   } from "carbon-components-svelte";
-  import {
-    Notification20,
-    UserAvatar20,
-    AppSwitcher20,
-  } from "carbon-icons-svelte";
   import { page } from "$app/stores";
 </script>
 
@@ -28,8 +23,14 @@
     />
   </HeaderNav>
   <HeaderUtilities>
-    <HeaderGlobalAction aria-label="Notifications" icon={Notification20} />
-    <HeaderGlobalAction aria-label="User Avatar" icon={UserAvatar20} />
-    <HeaderGlobalAction aria-label="App Switcher" icon={AppSwitcher20} />
+    <HeaderGlobalAction aria-label="Notifications">
+      <icon name="Notification20" />
+    </HeaderGlobalAction>
+    <HeaderGlobalAction aria-label="User Avatar">
+      <icon name="UserAvatar20" />
+    </HeaderGlobalAction>
+    <HeaderGlobalAction aria-label="App Switcher">
+      <icon name="AppSwitcher20" />
+    </HeaderGlobalAction>
   </HeaderUtilities>
 </Header>

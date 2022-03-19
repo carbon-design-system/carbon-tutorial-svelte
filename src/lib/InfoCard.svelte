@@ -1,6 +1,5 @@
 <script>
   export let heading = "";
-  export let icon;
 
   import { Column } from "carbon-components-svelte";
 
@@ -15,7 +14,7 @@
   <p>
     <slot />
   </p>
-  <svelte:component this={icon} />
+  <slot name="icon" />
 </Column>
 
 <style>
