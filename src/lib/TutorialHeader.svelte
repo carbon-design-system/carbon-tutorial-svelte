@@ -11,15 +11,15 @@
 </script>
 
 <Header company="IBM" platformName="Carbon Tutorial" href="/">
-  <div slot="skip-to-content">
+  <svelte:fragment slot="skip-to-content">
     <SkipToContent />
-  </div>
+  </svelte:fragment>
   <HeaderNav>
     <HeaderNavItem
       text="Repositories"
       href="/repos"
       sveltekit:prefetch
-      aria-current={$page.url.pathname === "/repos" ? "page" : undefined}
+      isSelected={$page.url.pathname === "/repos"}
     />
   </HeaderNav>
   <HeaderUtilities>
@@ -30,7 +30,7 @@
       <icon name="UserAvatar20" />
     </HeaderGlobalAction>
     <HeaderGlobalAction aria-label="App Switcher">
-      <icon name="AppSwitcher20" />
+      <icon name="Switcher20" />
     </HeaderGlobalAction>
   </HeaderUtilities>
 </Header>

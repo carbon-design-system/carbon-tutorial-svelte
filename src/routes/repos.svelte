@@ -91,7 +91,7 @@
         {pageSize}
         {page}
       >
-        <span slot="cell" let:row let:cell>
+        <svelte:fragment slot="cell" let:row let:cell>
           {#if cell.key === "links"}
             <ul style="display: flex;">
               <li>
@@ -105,8 +105,10 @@
               {/if}
             </ul>
           {:else}{cell.value}{/if}
-        </span>
-        <div slot="expanded-row" let:row>{row.description}</div>
+        </svelte:fragment>
+        <svelte:fragment slot="expanded-row" let:row>
+          {row.description ?? "N/A"}
+        </svelte:fragment>
       </DataTable>
       <Pagination
         {totalItems}

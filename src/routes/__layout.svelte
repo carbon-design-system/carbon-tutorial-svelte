@@ -1,5 +1,5 @@
 <script>
-  import "carbon-components-svelte/css/white.css";
+  import "carbon-components-svelte/css/all.css";
   import { Content, Grid } from "carbon-components-svelte";
   import TutorialHeader from "$lib/TutorialHeader.svelte";
 </script>
