@@ -8,8 +8,7 @@ export default {
     target: "#svelte",
     adapter: adapter(),
     vite: {
-      // optimizeDeps: { include: ["clipboard-copy"] },
-      optimizeDeps: { },
+      optimizeDeps: { include: ["clipboard-copy"] },
     },
   },
 };
