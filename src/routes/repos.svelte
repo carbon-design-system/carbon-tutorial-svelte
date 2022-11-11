@@ -1,5 +1,61 @@
 <script>
-  import { Row, Column, DataTable } from "carbon-components-svelte";
+  import {
+    Row,
+    Column,
+    DataTable,
+    DataTableSkeleton,
+    Pagination,
+    Link,
+  } from "carbon-components-svelte";
+  import { onMount } from "svelte";
+  import { TOKEN } from "../constants";
+
+  let loading = true;
+  let error = false;
+  let data = [];
+
+  async function fetchData() {
+    const response = await fetch("https://api.github.com/graphql", {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${TOKEN}`,
+      },
+      body: JSON.stringify({
+        query: `query REPO_QUERY {
+          # Let's use carbon as our organization
+          organization(login: "carbon-design-system") {
+            # We'll grab all the repositories in one go. To load more resources
+            # continuously, see the advanced topics.
+            repositories(first: 75, orderBy: { field: UPDATED_AT, direction: DESC }) {
+              nodes {
+                id
+                name
+                description
+                url
+                homepageUrl
+                issues(filterBy: { states: OPEN }) { totalCount }
+                stargazers { totalCount }
+                updatedAt
+                createdAt
+              }
+            }
+          }
+        }`,
+      }),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      data = result.data.organization.repositories.nodes;
+    } else {
+      error = result;
+    }
+
+    loading = false;
+  }
+
+  onMount(fetchData);
 
   const headers = [
     { key: "name", value: "Name" },
@@ -10,48 +66,62 @@
     { key: "links", value: "Links" },
   ];
 
-  const rows = [
-    {
-      id: "1",
-      name: "Repo 1",
-      createdAt: "Date",
-      updatedAt: "Date",
-      issueCount: "123",
-      stars: "456",
-      links: "Links",
-    },
-    {
-      id: "2",
-      name: "Repo 2",
-      createdAt: "Date",
-      updatedAt: "Date",
-      issueCount: "123",
-      stars: "456",
-      links: "Links",
-    },
-    {
-      id: "3",
-      name: "Repo 3",
-      createdAt: "Date",
-      updatedAt: "Date",
-      issueCount: "123",
-      stars: "456",
-      links: "Links",
-    },
-  ];
+  $: repos = data.map((row) => ({
+    ...row,
+    stars: row.stargazers.totalCount,
+    issueCount: row.issues.totalCount,
+    createdAt: new Date(row.createdAt).toLocaleDateString(),
+    updatedAt: new Date(row.updatedAt).toLocaleDateString(),
+  }));
+
+  $: totalItems = repos.length;
+  let page = 1;
+  let pageSize = 10;
+
+  $: firstRowIndex = pageSize * (page - 1);
+  $: rows = repos.slice(firstRowIndex, firstRowIndex + pageSize);
 </script>
 
 <Row class="repo-page__r1">
   <Column>
-    <DataTable
-      expandable
-      title="Carbon Repositories"
-      description="A collection of public Carbon repositories."
-      {headers}
-      {rows}
-    >
-      <p slot="expanded-row" let:row>Row description</p>
-    </DataTable>
+    {#if loading}
+      <DataTableSkeleton showToolbar={false} {headers} rows={10} />
+    {/if}
+
+    {#if error}Error! {error.message}{/if}
+
+    {#if totalItems > 0}
+      <DataTable
+        expandable
+        title="Carbon Repositories"
+        description="A collection of public Carbon repositories."
+        {headers}
+        {rows}
+      >
+        <span slot="cell" let:row let:cell>
+          {#if cell.key === "links"}
+            <ul style="display: flex;">
+              <li>
+                <Link href={row.url}>GitHub</Link>
+              </li>
+              {#if row.homepageUrl}
+                <li>
+                  <span>&nbsp;|&nbsp;</span>
+                  <Link href={row.homepageUrl}>Homepage</Link>
+                </li>
+              {/if}
+            </ul>
+          {:else}{cell.value}{/if}
+        </span>
+        <div slot="expanded-row" let:row>{row.description}</div>
+      </DataTable>
+      <Pagination
+        {totalItems}
+        bind:page
+        bind:pageSize
+        pageSizes={[5, 10, 15, 25]}
+      />
+    {/if}
   </Column>
 </Row>
 
