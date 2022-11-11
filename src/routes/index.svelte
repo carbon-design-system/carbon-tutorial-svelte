@@ -10,6 +10,13 @@
     Breadcrumb,
     BreadcrumbItem,
   } from "carbon-components-svelte";
+  import InfoSection from "$lib/InfoSection.svelte";
+  import InfoCard from "$lib/InfoCard.svelte";
+  import {
+    PersonFavorite32,
+    Application32,
+    Globe32,
+  } from "carbon-icons-svelte";
 </script>
 
 <Row class="landing-page-background landing-page__banner">
@@ -69,14 +76,26 @@
   </Column>
 </Row>
 
-<Row class="landing-page-background landing-page__r3">
-  <Column md={4} lg={4}>
-    <h3>The Principles</h3>
-  </Column>
-  <Column md={4} lg={4}>Carbon is Open</Column>
-  <Column md={4} lg={4}>Carbon is Modular</Column>
-  <Column md={4} lg={4}>Carbon is Consistent</Column>
-</Row>
+<InfoSection
+  heading="The Principles"
+  class="landing-page-background landing-page__r3"
+>
+  <InfoCard heading="Carbon is Open" icon={PersonFavorite32}>
+    It’s a distributed effort, guided by the principles of the open-source
+    movement. Carbon’s users are also it’s makers, and everyone is encouraged to
+    contribute.
+  </InfoCard>
+  <InfoCard heading="Carbon is Modular" icon={Application32}>
+    Carbon’s modularity ensures maximum flexibility in execution. Its components
+    are designed to work seamlessly with each other, in whichever combination
+    suits the needs of the user.
+  </InfoCard>
+  <InfoCard heading="Carbon is Consistent" icon={Globe32}>
+    Based on the comprehensive IBM Design Language, every element and component
+    of Carbon was designed from the ground up to work elegantly together to
+    ensure consistent, cohesive user experiences.
+  </InfoCard>
+</InfoSection>
 
 <style>
   h1 {
@@ -90,10 +109,6 @@
 
   h2 {
     font-weight: "semibold";
-  }
-
-  h3 {
-    font: "heading-01";
   }
 
   p {
